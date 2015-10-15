@@ -58,3 +58,7 @@ target/
 
 # PyCharm
 .idea/
+
+# excel file
+*.xls
+*.xlsx
