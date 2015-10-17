@@ -12,7 +12,7 @@ def read(fileObj, securityTrader=None, _flowType=None):
     :return:
     """
 
-    flowing = Flowing.open(fileObj, securityTrader, _flowType)
+    flowing = Flowing.open(fileObj, securityTrader)
 
     return flowing
 

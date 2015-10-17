@@ -3,6 +3,7 @@ __author__ = 'lamter'
 
 import re
 import json
+import datetime
 
 import xlrd
 import openpyxl
@@ -21,18 +22,19 @@ class Flowing():
     """
     将一个 excel 文件解析并返回
     """
-
-    TRADERS = json.load('traders.json')
+    with open('traders.json', 'r') as traders:
+        TRADERS = json.load(traders)
 
     @classmethod
     def open(cls, fileObj, flowingType=None):
         try:
+            ''' 读物流水文件 '''
             if fileObj.name.endswith('.xls'):
                 return cls.open_xls(fileObj)
             elif fileObj.name.endswith('.xlsx'):
                 return cls.open_xlsx(fileObj)
         except TypeError:
-            ''' 非常规 excel 文件 '''
+            # TODO ''' 非常规 excel 文件 '''
             return cls.open_text(fileObj, flowingType)
 
         raise UnknowTrader(fileObj.name)
@@ -66,16 +68,18 @@ class Flowing():
         :return:
         """
 
-        ''' 解析表头, 根据表头判断解析类型 '''
+        # 解析表头, 根据表头判断解析类型
         fileObj.seek(0, 0)  # 将指针移动到开头
         titleStr = fileObj.readline().replace('\n', '')
 
+        # 一系列用来分析表头的函数
         analyTitleFuncs = [
             cls._byTableKey,    #
         ]
 
         flowingTypes = []
         for func in analyTitleFuncs:
+            # 逐个解析表头的函数，以此来确定券商的类型，可能会有多个解析函数符合，即可能多个券商符合
             try:
                 flowingTypes = func(titleStr)
             except AnalyTitleFaild:
@@ -84,12 +88,17 @@ class Flowing():
         if not flowingTypes:
             raise UnknowTrader('title: titleStr')
 
+        # 根据可能符合的券商，生成 Flowing() 实例返回
         if flowingType is None:
-            ''' 没有指定了流水类型 '''
-            return cls._getInstanceByFlowingType(flowingType, flowingTypes)
+            # TODO ''' 没有指定了流水类型 '''
+            flowing = cls._getInstanceByFlowingType(flowingType, flowingTypes)
         else:
-            ''' 指定了流水类型 '''
-            return cls._getInstanceNotByFlowingType(flowingTypes)
+            # TODO ''' 指定了流水类型 '''
+            flowing = cls._getInstanceNotByFlowingType(flowingTypes)
+
+        # 读取数据部分
+        flowing.readData(fileObj)
+
 
 
     @classmethod
@@ -110,8 +119,6 @@ class Flowing():
         没指定流水类型时
         :return:
         """
-
-
 
 
     @classmethod
@@ -153,5 +160,24 @@ class Flowing():
         return s.replace('=', '').replace('"', '').replace("'", '')
 
 
+    def readData(self, fileObj):
+        """
+        读取数据部分
+        :param fileObj:
+        :return:
+        """
+
+        try:
+            while 1:
+                self.saveToItem(fileObj.readline())
+        except IOError:
+            pass
+        except:
 
 
+    def saveToItem(self, record):
+        """
+
+        :param record:
+        :return:
+        """
