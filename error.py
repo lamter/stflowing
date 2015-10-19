@@ -18,3 +18,14 @@ class AnalyTitleFaild(FlowingException):
     """
     解析表头失败
     """
+
+
+class AnalyOriginArrayAsTextFaild(FlowingException):
+    """
+    解析初始数据失败
+    """
+
+class AnalyOriginArrayFaild(FlowingException):
+    """
+    解析初始数据失败
+    """

@@ -26,7 +26,7 @@ class TestRead(unittest.TestCase):
         :return:
         """
         with open('20150615_20150813_ht_currency.xls', 'r', encoding='gbk') as f:
-            flowing = opertaion.read(f)
+            print(opertaion.read(f))
 
 
     def test_open(self):
