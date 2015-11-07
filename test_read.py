@@ -26,7 +26,8 @@ class TestRead(unittest.TestCase):
         :return:
         """
         with open('20150615_20150813_ht_currency.xls', 'r', encoding='gbk') as f:
-            print(opertaion.read(f))
+            flowing = opertaion.read(f)
+            print(flowing)
 
 
     def test_open(self):
@@ -35,11 +36,12 @@ class TestRead(unittest.TestCase):
 
 
     def test_file(self):
-        with open('iterm.py', 'r') as f:
-            print(17171, f.readline())
+        with open('item.py', 'r') as f:
+            while 1:print(17171, f.readline())
 
             # f.seek(0, 2)
-            print(181818, f.read())
+            # print(181818, f.read())
+            # print(f.fileno())
 
 
 
@@ -63,3 +65,9 @@ class TestRead(unittest.TestCase):
         import json
         with open('traders.json', 'r') as f:
             print(json.load(f))
+
+
+    def test_table_key(self):
+        a = '		'
+
+        print(a.split('\t'))
