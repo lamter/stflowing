@@ -12,9 +12,9 @@ Description
 
 How to use
 -----------
-
-with open('20150615_20150813_ht_currency.xls', 'r', encoding='gbk') as f:
-    flowing = opertaion.read(f)
-    print(flowing.originArray)
-    print(flowing.getOriginHeads())
-    print(flowing.getOriginData())
+::
+    with open('20150615_20150813_ht_currency.xls', 'r', encoding='gbk') as f:
+        flowing = opertaion.read(f)
+        print(flowing.originArray)
+        print(flowing.getOriginHeads())
+        print(flowing.getOriginData())
