@@ -14,10 +14,8 @@ class Shares(Model):
     股票交易流水表
     """
     __table__ = 'shares'
-
     id = IntegerField(primary_key=True)
-    # name = StringField()
-
+    name = StringField(ddl='varchar(50)')
 
 
 
@@ -56,3 +54,5 @@ class Shares(Model):
     #     for i, proName in enumerate(self.heads.keys()):
     #         setattr(self, proName, datas[i])
     #
+
+
